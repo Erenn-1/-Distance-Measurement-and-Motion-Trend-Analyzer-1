@@ -4,43 +4,71 @@
 // KİŞİ A (MUSTAFA) - Gün 2 Görevi: SysTick Timer ile Bekleme
 // ==============================================================
 void delay_us(uint32_t us) {
-    SysTick->VAL = 0;                     // 1. Mevcut sayacı sıfırla
-    SysTick->LOAD = (us * 16) - 1;        // 2. 16 MHz clock için 1 us = 16 vuruş
-    SysTick->CTRL = 5;                    // 3. SysTick'i başlat (Clock source: Processor, Enable)
-    while (!(SysTick->CTRL & (1 << 16))); // 4. Süre dolana kadar bekle (COUNTFLAG kontrolü)
-    SysTick->CTRL = 0;                    // 5. İş bitince SysTick'i durdur
+    SysTick->VAL = 0;
+    SysTick->LOAD = (us * 16) - 1;
+    SysTick->CTRL = 5;
+    while (!(SysTick->CTRL & (1 << 16)));
+    SysTick->CTRL = 0;
 }
 
+// ==============================================================
+// KİŞİ A (MUSTAFA) - Gün 3 Görevi: TIM2 Input Capture Ayarları
+// ==============================================================
+void TIM2_Input_Capture_Init(void) {
+
+    // 1. TIM2'nin şalterini (clock sinyalini) açıyoruz (APB1 hattındadır)
+    RCC->APB1ENR |= (1 << 0);
+
+    // 2. Prescaler (PSC) Ayarı: 16 MHz / (15 + 1) = 1 MHz (1 mikrosaniye hassasiyet)
+    TIM2->PSC = 15;
+
+    // 3. Auto-Reload Register (ARR): 32-bit timer
+    TIM2->ARR = 0xFFFFFFFF;
+
+    // 4. CCMR1 Register: Kanal 1'i (CH1) "Giriş (Input)" olarak seçiyoruz.
+    TIM2->CCMR1 |= (1 << 0);
+    TIM2->CCMR1 &= ~(1 << 1);
+
+    // 5. CCER Register: Yakalama işlemini aktif ediyoruz (Kamerayı açıyoruz)
+    TIM2->CCER |= (1 << 0);
+
+    // 6. CR1 Register: Kronometreyi resmen başlatıyoruz! (CEN biti)
+    TIM2->CR1 |= (1 << 0);
+}
+
+
+// ==============================================================
+// ANA PROGRAM (İşlemcinin ilk girdiği yer)
+// ==============================================================
 int main(void) {
 
     // ==============================================================
-    // KİŞİ A (MUSTAFA) - Gün 2 Görevi: Clock Konfigürasyonları
+    // 1. KURULUM KISMI (Sadece 1 kez çalışır)
     // ==============================================================
 
-    // 1. GPIOA için Clock'u aktif et (NUCLEO üzerindeki LED PA5'e bağlıdır)
-    // AHB1ENR register'ının 0. bitini (GPIOAEN) 1 yapıyoruz.
+    // A portunun saat sinyalini aktif et
     RCC->AHB1ENR |= (1 << 0);
+
+    // KRONOMETREYİ ÇALIŞTIR (İşte bunu buraya yazman gerekiyordu!)
+    TIM2_Input_Capture_Init();
 
 
     // --- EREN'İN DONANIM AYARLARI ---
-
-    // 2. PA5 pinini Output (Çıkış) moduna al
-    // Önce 10. ve 11. bitleri temizliyoruz (00 yapıyoruz)
+    // PA5 pinini Output (Çıkış) moduna al
     GPIOA->MODER &= ~(3 << 10);
-    // Sonra 10. biti 1 yapıyoruz (01 -> General purpose output mode)
     GPIOA->MODER |= (1 << 10);
 
 
     // ==============================================================
-    // ANA DÖNGÜ
+    // 2. ANA DÖNGÜ (Sonsuza dek çalışır)
     // ==============================================================
     while (1) {
 
-        // 3. PA5'in durumunu tersine çevir (LED'i yak/söndür)
+        // PA5'in durumunu tersine çevir (LED'i yak/söndür)
         GPIOA->ODR ^= (1 << 5);
 
-        // 4. Profesyonel Bekleme (Senin yazdığın donanımsal timer)
-        delay_us(1000000); // 1.000.000 mikrosaniye = 1 tam saniye bekle
+        // Profesyonel Bekleme
+        delay_us(1000000);
 
     }
 }
