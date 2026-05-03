@@ -1,4 +1,4 @@
-#include "stm32f4xx.h"  // Cihaza ait register tanımlarını (CMSIS) içerir
+#include "stm32f411xe.h" // Cihaza ait register tanımlarını (CMSIS) içerir
 
 int main(void) {
 
