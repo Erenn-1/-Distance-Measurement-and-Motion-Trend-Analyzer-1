@@ -16,7 +16,7 @@ int main(void) {
     while (1) {
 
         // 3. PA5'in durumunu tersine çevir (Toggle LED)
-        // ODR (Output Data Register) üzerinden 5. biti XOR ile tersliyoruz.bok
+        // ODR (Output Data Register) üzerinden 5. biti XOR ile tersliyoruz.
         GPIOA->ODR ^= (1 << 5);
 
         // 4. Basit bir gecikme (Dummy delay)
