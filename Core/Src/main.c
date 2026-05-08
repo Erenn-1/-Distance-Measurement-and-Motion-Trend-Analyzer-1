@@ -1,7 +1,4 @@
-#include "system.h"
-#include "uart.h"
-#include "hc_sr04.h"
-#include "motion.h"
+#include "main.h"
 
 /*
  * Project 2 – Distance Measurement and Motion Trend Analyzer

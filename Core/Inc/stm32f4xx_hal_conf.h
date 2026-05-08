@@ -222,7 +222,7 @@
 /* Section 2: PHY configuration section */
 
 /* DP83848_PHY_ADDRESS Address*/
-#define DP83848_PHY_ADDRESS
+#define DP83848_PHY_ADDRESS             0x01U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
 #define PHY_RESET_DELAY                 0x000000FFU
 /* PHY Configuration delay */
@@ -252,10 +252,9 @@
 #define PHY_JABBER_DETECTION            ((uint16_t)0x0002U)  /*!< Jabber condition detected            */
 
 /* Section 4: Extended PHY Registers */
-#define PHY_SR                          ((uint16_t))    /*!< PHY status register Offset                      */
-
-#define PHY_SPEED_STATUS                ((uint16_t))  /*!< PHY Speed mask                                  */
-#define PHY_DUPLEX_STATUS               ((uint16_t))  /*!< PHY Duplex mask                                 */
+#define PHY_SR                          ((uint16_t)0x0010U)  /*!< DP83848 PHY Status Register (reg 16)   */
+#define PHY_SPEED_STATUS                ((uint16_t)0x0002U)  /*!< DP83848 Speed bit in PHY_SR (0=100M)   */
+#define PHY_DUPLEX_STATUS               ((uint16_t)0x0004U)  /*!< DP83848 Duplex bit in PHY_SR (0=Full)  */
 
 /* ################## SPI peripheral configuration ########################## */
 

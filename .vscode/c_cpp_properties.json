@@ -1,18 +1,20 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "STM32F411-ARM",
             "includePath": [
-                "${default}",
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/Core/Inc",
+                "${workspaceFolder}/Core/Src",
                 "${workspaceFolder}/Drivers/CMSIS/Include"
             ],
             "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ]
+                "STM32F411xE",
+                "__weak=__attribute__((weak))",
+                "__packed=__attribute__((__packed__))"
+            ],
+            "compilerPath": "C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256/tools/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "gnu11",
+            "intelliSenseMode": "gcc-arm"
         }
     ],
     "version": 4

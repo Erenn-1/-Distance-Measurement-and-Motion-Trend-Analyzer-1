@@ -1,7 +1,13 @@
 #ifndef STM32F411XX_H
 #define STM32F411XX_H
 
-#include <stdint.h>
+/* Cortex-M4 core configuration for STM32F411xE (required by core_cm4.h) */
+#define __CM4_REV              0x0001U
+#define __MPU_PRESENT          1U
+#define __NVIC_PRIO_BITS       4U
+#define __Vendor_SysTickConfig 0U
+#define __FPU_PRESENT          1U
+#include "core_cm4.h"   /* Provides SysTick_Type, SysTick pointer, and uint32_t */
 
 /* ===== RCC ===== */
 typedef struct {
@@ -79,6 +85,7 @@ typedef struct {
 #define TIM2                ((TIM_TypeDef *)TIM2_BASE)
 
 #define TIM_CR1_CEN         (1U << 0)
+#define TIM_EGR_UG          (1U << 0)   /* Update Generation: forces PSC/ARR shadow register reload */
 
 /* ===== USART2 ===== */
 typedef struct {
@@ -100,17 +107,8 @@ typedef struct {
 #define USART_CR1_TE        (1U << 3)
 #define USART_CR1_UE        (1U << 13)
 
-/* ===== SysTick ===== */
-typedef struct {
-    volatile uint32_t CTRL;
-    volatile uint32_t LOAD;
-    volatile uint32_t VAL;
-    volatile uint32_t CALIB;
-} SysTick_Type;
-
-#define SYSTICK_BASE        0xE000E010UL
-#define SysTick             ((SysTick_Type *)SYSTICK_BASE)
-
+/* ===== SysTick control bits ===== */
+/* SysTick_Type and SysTick pointer come from core_cm4.h above */
 #define SYSTICK_CTRL_ENABLE    (1U << 0)
 #define SYSTICK_CTRL_TICKINT   (1U << 1)
 #define SYSTICK_CTRL_CLKSOURCE (1U << 2)

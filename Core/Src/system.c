@@ -26,6 +26,8 @@ void system_init(void) {
      */
     TIM2->PSC = 15U;
     TIM2->ARR = 0xFFFFFFFFU;
+    TIM2->EGR = TIM_EGR_UG;    /* Force update event: loads PSC shadow register immediately */
+    TIM2->SR  = 0U;             /* Clear UIF flag raised by UG */
     TIM2->CNT = 0U;
     TIM2->CR1 = TIM_CR1_CEN;
 }
