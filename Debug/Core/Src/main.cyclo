@@ -1,1 +1,5 @@
-../Core/Src/main.c:3:5:main	2
+../Core/Src/main.c:45:5:main	5
+../Core/Src/main.c:93:13:run_reference_mode	5
+../Core/Src/main.c:158:13:print_stats	4
+../Core/Src/main.c:187:13:run_dynamic_mode	13
+../Core/Src/main.c:307:13:print_banner	1

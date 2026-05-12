@@ -10,7 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
--include Core/Startup/subdir.mk
+-include Core/startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -60,8 +60,8 @@ all: main-build
 main-build: Distance_Analyzer.elf secondary-outputs
 
 # Tool invocations
-Distance_Analyzer.elf Distance_Analyzer.map: $(OBJS) $(USER_OBJS) C:\Users\erenb\STM32CubeIDE\workspace_1.15.1\Distance_Analyzer\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Distance_Analyzer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\erenb\STM32CubeIDE\workspace_1.15.1\Distance_Analyzer\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Distance_Analyzer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Distance_Analyzer.elf Distance_Analyzer.map: $(OBJS) $(USER_OBJS) C:\Users\user\Documents\GitHub\-Distance-Measurement-and-Motion-Trend-Analyzer-1\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Distance_Analyzer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\user\Documents\GitHub\-Distance-Measurement-and-Motion-Trend-Analyzer-1\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Distance_Analyzer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

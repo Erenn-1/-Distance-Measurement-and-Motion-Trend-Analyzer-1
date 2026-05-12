@@ -1,0 +1,6 @@
+../Core/Src/motion.c:30:6:motion_init	1
+../Core/Src/motion.c:40:16:motion_classify	3
+../Core/Src/motion.c:61:13:motion_trend_str	3
+../Core/Src/motion.c:74:10:motion_speed_x100	2
+../Core/Src/motion.c:104:6:motion_update_window	2
+../Core/Src/motion.c:124:10:motion_avg_speed_x100	7
